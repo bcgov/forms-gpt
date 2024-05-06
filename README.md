@@ -4,7 +4,8 @@
 This project was created in order to streamline the creation and editing of forms by new CHEFS users. Allowing the user to type, in natural language, a request for generating or altering an existing form. Features included in this proof of concept include:
 
 * __Context__: Adding documentation or source material for the forms product, in this case custom form components, and passing this information as reference to the Large Language Model. The large language model then can utilize this specialised information which may not have been in its training data. 
-* __Form Compression__: This was implemented to reduce the number of tokens used in the LLM requests. A token is the name for the base unit of data for LLM processing. In a text context a token could be a word, a section of a word, or a  single character.  In sending an edit request the entire existing form which may consist of thousands of tokens is sent to the LLM. Shrinking these forms allows for a more efficient use of the LLM's processing. 
+* __Keycloak IDIR Integration__: Restricting use of this proof of concept to IDIR users and rate limiting on a per user basis.
+* __Form Compression__: This was implemented to reduce the number of tokens used in the LLM requests. A token is the name for the base unit of data for LLM processing, in a text context, a token could be a word, a section of a word, or a  single character.  In sending an edit request the entire existing form which may consist of thousands of tokens is sent to the LLM. Shrinking these forms allows for a more efficient use of the LLM's processing. 
 * __Output Sanitizing__: Reducing the response space into a form JSON aids in preventing unintended usage of the LLM.
 
 
@@ -21,6 +22,9 @@ __Backend__
 
 `OPENAI_API_KEY=YOUR_OPENAI_API_KEY` : See instructions below for generating an API Key
 
+`KEYCLOAK_REALM=realm_name` 
+
+`KEYCLOAK_URL=https://sample.keycloak.com/auth`
 
 __Frontend__
 
@@ -28,6 +32,12 @@ __Frontend__
 For `frontend/sample.env` :
 
 `REACT_APP_BACKEND=http://{Your IP Address}:3081`
+
+`REACT_APP_KEYCLOAK_REALM=realm_name`
+
+`REACT_APP_KEYCLOAK_URL=https://sample.keycloak.com/auth`
+
+`REACT_APP_KEYCLOAK_CLIENTID=keycloak_client`
 
 
 ### Generating an OpenAI API Key
@@ -59,8 +69,6 @@ For `frontend/sample.env` :
 
 
 ### Building and Running
-
-
 #### _Running with Docker_
 
 Ensure you have the latest version of Docker Desktop installed with the command line interface.
@@ -95,4 +103,3 @@ run `npm install`
 and `npm start` to run the frontend.
 
 You can then navigate to [http://localhost:3000](http://localhost:3000) to use your local instance.
-

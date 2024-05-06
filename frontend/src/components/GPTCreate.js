@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import {postEditForm, postPrompt} from '../requests/PromptRequests';
 import { Form as FormRender } from '@formio/react';
 import { Modal, Button } from 'react-bootstrap';
 import { MessageList, Input, Button as ChatButton } from "react-chat-elements";
-import { compressJson } from '../helpers/compressJson';
+/*import { compressJson } from '../helpers/compressJson';*/
+import { KeycloakContext } from '../context/KeycloakContext';
 import "react-chat-elements/dist/main.css";
 import './GPTCreate.css'; // Ensure this is correctly pointing to your CSS file
 
@@ -24,6 +25,7 @@ const INIT_GPT_MESSAGE_EDIT = (
     </span>
 );
 const GPTCreate = ({onApply, initialForm, onShowAssistant}) => {
+    const { getToken } = useContext(KeycloakContext)
 
     const [prompt, setPrompt] = useState('');
     const [response, setResponse] = useState(null);
@@ -82,13 +84,14 @@ const GPTCreate = ({onApply, initialForm, onShowAssistant}) => {
         });
         messageBoxRef.current?.scrollIntoView({behaviour:'smooth'})
         try {
-            // Determine which API to call based on whether we are updating an existing form
+            /*// Determine which API to call based on whether we are updating an existing form
             if(currentForm){
                 console.log(compressJson(currentForm))
-            }
+            }*/
 
             const apiCall = currentForm ? postEditForm : postPrompt;
-            const payload = currentForm ? { prompt, form: currentForm} : { prompt};
+            const token = getToken();
+            const payload = currentForm ? { prompt, form: currentForm, token} : { prompt, token};
             setPrompt("")
             const res = await apiCall(payload)
             setResponse(res);

@@ -32,7 +32,7 @@ const FormList = () => {
         <>
             <Toast className='mb-4'  style={{ width: "100%" }} bg='danger'>
                 <Toast.Header closeButton={false}>
-                Welcome to FormsGPT. Your data will not persist. Please export any forms you would like to save.
+                Welcome to FormsGPT. Your data will not persist between logins. Please export any forms you would like to save.
                 </Toast.Header>
             </Toast>
             <div className="m-3">

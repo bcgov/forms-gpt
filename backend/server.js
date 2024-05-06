@@ -17,6 +17,8 @@ const {rateLimit} = require('express-rate-limit')
 const { jwtDecode } = require('jwt-decode')
 
 const { processDirectory } = require('./context/index.js')
+const { verifyKeycloakToken, tokenFromHeader } = require('./auth/index')
+
 
 dotenv.config();
 const app = express();
@@ -38,6 +40,16 @@ const rateLimitWindow = DAY_IN_MILLISECONDS;
 //Limits 150 requests per day per user by default
 const limit = process.env.API_DAILY_LIMIT ? process.env.API_DAILY_LIMIT : 150;
 const limiter = rateLimit({
+
+    keyGenerator: function(req){
+        const token = req.headers['authorization']
+        if(token){
+            var decoded = jwtDecode(token)
+            return decoded.idir_user_guid//limit requests by idir users
+        }
+        console.log("ip used"+ limit)
+        return req.ip
+    },
     windowMs: rateLimitWindow,
     limit: limit,
     message: `You have exceeded the request limit. ${limit} Requests per 24 Hours.`,
@@ -46,6 +58,20 @@ const limiter = rateLimit({
 app.use(limiter)
 
 
+app.use((req,res,next)=>{
+    const token = tokenFromHeader(req);
+    if (!token){
+        return res.status(401)
+    }
+    verifyKeycloakToken(token).then(()=>{
+        console.log("Valid token")
+        next();
+    })
+    .catch((err)=>{
+        res.status(400).json(err)
+    })
+})
+
 const SYSTEM_MESSAGE = `you are an assistant to help create form.io forms with full and completed json files. You can add form fields which you believe would be relevant. The components you can use are:   textfield, textarea, number, checkbox, radio, select, datetime, file,day,time, url, email, phoneNumber, currency, hidden, password, panel, well, button, columns, fieldset, htmlelement, content, html, alert, tabs`;
 const EDIT_SYSTEM_MESSAGE = `you are an assistant to help create form.io forms with full and completed json files. You will be provided with a Form.io JSON to alter, and a prompt which contains your instructions for alteration. Interpret the instructions and use Form.io components to achieve the desired result and return the JSON file \n{form}`
 const DOCS_PATH = "./docs/";
@@ -53,7 +79,6 @@ const DOCS_PATH = "./docs/";
 const chatModel = new ChatOpenAI({
     temperature: 1,
     openAIApiKey: process.env.OPENAI_API_KEY
-    
 });
 
 // Use a self-invoking function to set the retriever due to its async nature

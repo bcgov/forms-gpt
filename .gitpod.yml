@@ -1,0 +1,52 @@
+# Image of workspace. 
+image: gitpod/workspace-full:latest
+
+# List the start up tasks. 
+tasks:
+  - name: infrastructure
+    before: | # Bring down any previously running containers
+      echo 'Bringing down any previously running containers'
+    init: |   
+      cd docker
+      docker-compose down -v
+  - name : backend
+    init: |
+      cd docker
+      echo 'build container backend'
+      cp .env-gitpod .env
+      docker-compose build backend 
+      echo 'built container backend'
+    command: |
+      cd docker
+      echo 'start container backend'
+      docker-compose up -d backend
+      echo 'started container backend'
+  - name : frontend
+    init: |
+      cd docker
+      echo 'build container frontend'
+      cp .env-gitpod .env      
+      eval $(gp env -e)
+      export REACT_APP_BACKEND=`gp url 3081`
+      docker-compose build frontend
+      echo 'built container frontend'
+    command: |
+      eval $(gp env -e)
+      export REACT_APP_BACKEND=`gp url 3081`
+      cd docker
+      echo 'start container frontend'
+      docker-compose up -d frontend
+      echo 'started container frontend'
+     
+
+ports:
+  - name: Frontend
+    description: Port 80 for the frontend
+    port: 80
+    onOpen: open-preview
+    visibility: public
+  - name: Backend
+    description: Port 3081 for the backend
+    port: 3081
+    onOpen: ignore
+    visibility: public

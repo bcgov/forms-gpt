@@ -5,7 +5,6 @@ const FormContext = createContext();
 export const useFormContext = () => useContext(FormContext);
 
 export const FormProvider = ({ children }) => {
-    console.log("form provider");
     const [forms, setForms] = useState(() => {
         const savedForms = localStorage.getItem('forms');
         return savedForms ? JSON.parse(savedForms) : [];
