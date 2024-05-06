@@ -1,0 +1,57 @@
+/* FormCreator.css */
+.form-creator-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa; /* Light grey background */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-builder {
+    border: 1px solid #ced4da; /* Light grey border */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Adjust the button styling if you have any specific buttons in your form creator */
+.button-custom {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-custom:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.form-creator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+
+.form-metadata {
+    flex-grow: 1;
+}
+
+.save-form-btn {
+    margin-left: 20px; /* Ensure there's some space between the form fields and the save button */
+    height: fit-content; /* Adjust the height to fit content, or set a specific height if preferred */
+}
+
+.blur-background {
+    filter: blur(8px); /* Adjust the px value to increase or decrease the blur */
+    pointer-events: none; /* Optional: disables interaction with elements behind the modal */
+    user-select: none; /* Optional: prevents text selection behind the modal */
+}
+
+.main-content {
+    /* Other styling */
+    transition: filter 0.3s ease; /* Smooth transition for blur */
+}

@@ -1,0 +1,190 @@
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 325px;
+    max-width: 100%;
+    overflow: auto;
+    height: 400px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: solid #0d6efd 1px;
+}
+
+.message-list {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+
+/* GPTCreate.css */
+.message-list .rce-mbox-right {
+    /* User messages */
+    background-color: #dcf8c6 !important; /* Light green */
+}
+
+.message-list .rce-mbox-left {
+    /* GPT messages */
+    background-color: #e6f7ff !important; /* Light blue */
+}
+
+.loading-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    background-color: #333;
+    border-radius: 50%;
+    animation: loadingDots 0.8s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes loadingDots {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+
+.typing-indicator {
+    height: 40px;
+    width: 40px;
+    margin: 5px auto 0;
+    position: relative;
+}
+
+.typing-indicator span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: #999;
+    border-radius: 50%;
+    position: absolute;
+    animation: typing 0.5s infinite alternate;
+}
+
+.typing-indicator span:nth-child(1) { left: 0; animation-delay: 0s; }
+.typing-indicator span:nth-child(2) { left: 15px; animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { right: 0; animation-delay: 0.3s; }
+
+@keyframes typing {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+.rce-input {
+    margin-top: 10px;
+}
+
+.rce-container-input {
+    border-top: 2px solid #ced4da; /* Adds a clear division between the chat messages and input area */
+}
+
+/* Styles for the chat container's header */
+.chat-header {
+    background-color: #007bff; /* This is a Bootstrap primary blue, adjust as needed */
+    color: white; /* White text for better contrast on the blue background */
+    padding: 10px;
+    border-radius: 5px; /* Optional: to add rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); /* Optional: adds slight shadow for depth */
+    border: 1px solid #006fe6; /* Optional: a slightly darker border for definition */
+}
+
+.header-button {
+    display: flex;
+    align-items: center;
+    font-size: 18px; /* Larger text for the header */
+    color: white; /* Dark text for better readability */
+    cursor: pointer;
+}
+
+.minimize-button {
+    font-size: 18px; /* Match the header text size */
+    color: white; /* Same color for consistency */
+    cursor: pointer;
+    padding: 5px; /* Easier to click */
+    border-radius: 50%; /* Circular background for icon */
+    transition: background-color 0.2s; /* Smooth transition for feedback */
+}
+
+.minimize-button:hover, .minimize-button:focus {
+    background-color: #0056b3; /* Slightly darker shade of blue than the header background */
+    color: white; /* Maintain white text color for contrast */
+}
+
+
+.header-button strong {
+    margin-right: 10px; /* Spacing between text and minimize icon */
+}
+
+
+.toggle-assistant-btn {
+    position: fixed;
+    right: 20px; /* Standard right offset */
+    bottom: 20px; /* Positioning from the bottom */
+    z-index: 1002; /* Above the assistant container */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #007bff; /* Use your theme color here */
+}
+
+/*!* When the assistant is shown, adjust the right offset *!
+.toggle-assistant-btn.btn-show {
+    right: calc(20px + 350px); !* Adjust 350px to the width of your GPTCreate container *!
+}*/
+
+/*.toggle-assistant-btn.btn-hide {
+    right: 350px; !* Adjust this to the width of GPTCreate to prevent overlap *!
+}*/
+
+/* Ensure the assistant itself has proper spacing to avoid overlap */
+.gpt-create-container .chat-container {
+    margin-right: 60px; /* Adjust this so it doesn't overlap with the toggle button */
+}
+/*
+.toggle-assistant-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px; !* Adjust the position according to your layout *!
+    z-index: 1002; !* Higher than the chat container to keep it accessible *!
+    background-color: #007bff; !* Bootstrap primary blue for example *!
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px; !* Fixed size for a circle *!
+    height: 50px;
+    font-size: 20px; !* Adjust icon size *!
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+*/
+
+.gpt-create-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    max-width: 350px; /* Limit the width */
+    height: auto; /* Let the height grow as needed */
+    z-index: 1001; /* Make sure it's above other elements but below modal */
+    border-top-left-radius: 10px; /* Rounded corners for the top-left edge */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow to the left */
+}

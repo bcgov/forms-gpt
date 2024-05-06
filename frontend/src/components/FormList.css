@@ -1,0 +1,4 @@
+.action-button:not(:last-child) {
+    margin-right: 8px; /* Adjust the spacing to your preference */
+}
+

@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "3081:3081" # Port forwarding to localhost
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${PORT:-3081}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GPT_MODEL: ${GPT_MODEL:-gpt-3.5-turbo}
+      LANGCHAIN_VERBOSE: ${LANGCHAIN_VERBOSE:-true}
+      API_DAILY_LIMIT: ${API_DAILY_LIMIT:-1000}
+    networks:
+      - my_network
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_BACKEND: ${REACT_APP_BACKEND:-http://127.0.0.1:3081}
+
+    ports:
+      - "80:80" # Port forwarding to localhost
+    networks:
+      - my_network
+    depends_on:
+      - backend
+
+
+networks:
+  my_network:
+    driver: bridge
+
+  #volumes:
+  #postgres:
+  #pgadmin:

@@ -1,0 +1,18 @@
+/* Assuming this CSS is part of a component-specific or global stylesheet */
+.form-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Add some space between the header and form builder */
+}
+
+.blur-background {
+    filter: blur(8px); /* Adjust the px value to increase or decrease the blur */
+    pointer-events: none; /* Optional: disables interaction with elements behind the modal */
+    user-select: none; /* Optional: prevents text selection behind the modal */
+}
+
+.main-content {
+    /* Other styling */
+    transition: filter 0.3s ease; /* Smooth transition for blur */
+}

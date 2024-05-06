@@ -1,0 +1,88 @@
+{
+    "components": [
+        {
+            "label": "Text Field",
+            "labelPosition": "top",
+            "type": "simpletextfield",
+            "placeholder": "",
+            "description": "This component allows users to enter text",
+            "tooltip": "",
+            "inputMask": "",
+            "allowMultipleMasks": false,
+            "hideLabel": false,
+            "showWordCount": false,
+            "showCharCount": false,
+            "spellcheck": true,
+            "disabled": false,
+            "multiple": false,
+            "case": "",
+            "validate": {
+                "isUseForCopy": false,
+                "required": false,
+                "customMessage": "",
+                "minLength": "",
+                "maxLength": "",
+                "custom": "",
+                "customPrivate": false,
+                "strictDateValidation": false,
+                "multiple": false,
+                "unique": false,
+                "pattern": ""
+            },
+            "key": "simpletextfield",
+            "conditional": {
+                "show": null,
+                "when": null,
+                "eq": "",
+                "json": ""
+            },
+            "customConditional": "",
+            "input": true,
+            "prefix": "",
+            "customClass": "",
+            "suffix": "",
+            "protected": false,
+            "unique": false,
+            "persistent": true,
+            "hidden": false,
+            "clearOnHide": true,
+            "refreshOn": "",
+            "redrawOn": "",
+            "tableView": false,
+            "modalEdit": false,
+            "dataGridLabel": false,
+            "errorLabel": "",
+            "tabindex": "",
+            "autofocus": false,
+            "dbIndex": false,
+            "customDefaultValue": "",
+            "calculateValue": "",
+            "calculateServer": false,
+            "widget": {
+                "type": "input"
+            },
+            "attributes": {},
+            "validateOn": "change",
+            "overlay": {
+                "style": "",
+                "left": "",
+                "top": "",
+                "width": "",
+                "height": ""
+            },
+            "allowCalculateOverride": false,
+            "encrypted": false,
+            "properties": {},
+            "addons": [],
+            "mask": false,
+            "inputType": "text",
+            "inputFormat": "plain",
+            "displayMask": "",
+            "truncateMultipleSpaces": false,
+            "id": "ed9l15i",
+            "defaultValue": null
+        },
+
+
+    ]
+}
