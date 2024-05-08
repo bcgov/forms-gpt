@@ -1,0 +1,30 @@
+name: Forms GPT Docker Build
+
+on:
+  push:
+    branches:
+      - keycloak-integration
+  pull_request:
+    branches:
+      - keycloak-integration
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Image Tag
+        id: set_tag
+        run: echo "::set-output name=tag::${{ secrets.IMAGE_TAG }}"
+
+      - name: Build FormsGPT Frontend Docker Image
+        run: |
+          cd frontend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:formsgpt-${{ steps.set_tag.outputs.tag }} -f Containerfile .
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:formsgpt-${{ steps.set_tag.outputs.tag }}
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

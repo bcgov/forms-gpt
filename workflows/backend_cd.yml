@@ -1,0 +1,30 @@
+name: Backend Docker Build
+
+on:
+  push:
+    branches:
+      - keycloak-integration
+  pull_request:
+    branches:
+      - keycloak-integration
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Image Tag
+        id: set_tag
+        run: echo "::set-output name=tag::${{ secrets.IMAGE_TAG }}"
+
+      - name: Build Backend Docker Image
+        run: |
+          cd backend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:backend-${{ steps.set_tag.outputs.tag }} -f Dockerfile .
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:backend-${{ steps.set_tag.outputs.tag }}
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
