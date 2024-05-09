@@ -29,8 +29,10 @@ services:
         REACT_APP_KEYCLOAK_REALM: ${REACT_APP_KEYCLOAK_REALM}
         REACT_APP_KEYCLOAK_URL: ${REACT_APP_KEYCLOAK_URL}
         REACT_APP_KEYCLOAK_CLIENTID: ${REACT_APP_KEYCLOAK_CLIENTID}
+        REACT_APP_SSO_REDIRECT_URI: ${REACT_APP_SSO_REDIRECT_URI:-http://localhost:3000}
+        REACT_APP_SITEMINDER_LOGOUT: ${REACT_APP_KEYCLOAK_CLIENTID:-https://logon7.gov.bc.ca/clp-cgi/logoff.cgi}
     ports:
-      - "80:80" # Port forwarding to localhost
+      - "3000:80" # Port forwarding to localhost
     networks:
       - my_network
     depends_on:
