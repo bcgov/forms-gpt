@@ -86,7 +86,7 @@ run `npm install`
 
 and `node server.js` to run the backend.'
 
-To test if the backend is up and running, you can navigate to [http://localhost:3001/health](http://localhost:3001/health).
+To test if the backend is up and running, you can navigate to [http://localhost:3081/health](http://localhost:3081/health).
 
 in a new terminal window, navigate to `/frontend/`
 
