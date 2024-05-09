@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import './NavbarComponent.css';
-import { KeycloakContext } from '../context/KeycloakContext';
-
+import {logout} from "../services/keycloakUserService";
+import {AuthenticationContext} from "../App";
 // Assuming custom CSS for the Navbar
 
 
 const NavbarComponent = () => {
-    const { keycloak, logout } = useContext(KeycloakContext);
-
+    const keycloak = useContext(AuthenticationContext);
 
     const handleLogout = () => {
         logout();
@@ -42,7 +41,7 @@ const NavbarComponent = () => {
                         {/* Add logout button and user name */}
                         {keycloak?.authenticated && (
                             <Nav>
-                                <Nav.Link className="nav-item">
+                               <Nav.Link className="nav-item">
                                     <span className="user-name">{keycloak?.tokenParsed?.display_name || ""}</span>
                                 </Nav.Link>
                                 <Nav.Link className="nav-item" onClick={handleLogout}>

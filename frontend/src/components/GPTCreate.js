@@ -3,10 +3,9 @@ import {postEditForm, postPrompt} from '../requests/PromptRequests';
 import { Form as FormRender } from '@formio/react';
 import { Modal, Button } from 'react-bootstrap';
 import { MessageList, Input, Button as ChatButton } from "react-chat-elements";
-/*import { compressJson } from '../helpers/compressJson';*/
-import { KeycloakContext } from '../context/KeycloakContext';
 import "react-chat-elements/dist/main.css";
-import './GPTCreate.css'; // Ensure this is correctly pointing to your CSS file
+import './GPTCreate.css';
+import {AuthenticationContext} from "../App";
 
 const INIT_GPT_MESSAGE_CREATE = (
     <span>
@@ -25,7 +24,8 @@ const INIT_GPT_MESSAGE_EDIT = (
     </span>
 );
 const GPTCreate = ({onApply, initialForm, onShowAssistant}) => {
-    const { getToken } = useContext(KeycloakContext)
+
+    const keycloak = useContext(AuthenticationContext);
 
     const [prompt, setPrompt] = useState('');
     const [response, setResponse] = useState(null);
@@ -90,7 +90,7 @@ const GPTCreate = ({onApply, initialForm, onShowAssistant}) => {
             }*/
 
             const apiCall = currentForm ? postEditForm : postPrompt;
-            const token = getToken();
+            const token = keycloak?.token;
             const payload = currentForm ? { prompt, form: currentForm, token} : { prompt, token};
             setPrompt("")
             const res = await apiCall(payload)
