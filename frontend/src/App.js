@@ -21,7 +21,7 @@ function App() {
 
     const initKeycloak = useCallback(async () => {
         const _keycloak = await initializeKeycloak();
-        setIsAuthenticated(_keycloak.authenticated);
+        setIsAuthenticated(_keycloak?.authenticated || false);
         setKeycloak(_keycloak);
     }, []);
 
