@@ -71,7 +71,7 @@ Update the `/docker/sample.env` file and rename it to `.env`
 
 Run `docker-compose up --build -d`
 
-To test if the backend is up and running, you can navigate to [http://localhost:3001/health](http://localhost:3001/health).
+To test if the backend is up and running, you can navigate to [http://localhost:3081/health](http://localhost:3081/health).
 
 To validate it running correctly, you can navigate to [http://localhost](http://localhost) to use your dockerized instance of the frontend.
 
