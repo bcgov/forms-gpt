@@ -87,11 +87,19 @@ let vectorStoreRetriever;
     vectorStoreRetriever = await processDirectory(DOCS_PATH);
 })();
 
+function removeEllipses(string){
+    return string.replace("...","");
+}
+
 function formJsonFromResponse(response) {
     const start = response.indexOf("{");
     const end = response.lastIndexOf("}") + 1; // To include the last parenthesis
+    var form = response.slice(start, end)
+    if(form.indexOf("...")){
+        form = removeEllipses(form);
+    }
     try {
-        return JSON.parse(response.slice(start, end));
+        return JSON.parse(form);
     } catch (error) {
         console.error("JSON parsing error: ", error);
         throw new Error("Invalid JSON response format.");

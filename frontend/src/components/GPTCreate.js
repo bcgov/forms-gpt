@@ -6,6 +6,8 @@ import { MessageList, Input, Button as ChatButton } from "react-chat-elements";
 import "react-chat-elements/dist/main.css";
 import './GPTCreate.css';
 import {AuthenticationContext} from "../App";
+import { compressJson } from '../helpers/compressJson';
+
 
 const INIT_GPT_MESSAGE_CREATE = (
     <span>
@@ -88,7 +90,7 @@ const GPTCreate = ({onApply, initialForm, onShowAssistant}) => {
             if(currentForm){
                 console.log(compressJson(currentForm))
             }*/
-
+            compressJson(currentForm)
             const apiCall = currentForm ? postEditForm : postPrompt;
             const token = keycloak?.token;
             const payload = currentForm ? { prompt, form: currentForm, token} : { prompt, token};
